@@ -21,8 +21,8 @@ jobs:
         run: |
           git fetch --tags --force
 
-      - name: Create Release
-        if: github.event_name != 'push.tags'
+      - name: Fetch tag version
+        if: github.event_name == 'push.tags'
         id: tag_data
         uses: ericcornelissen/git-tag-annotation-action@v1
 
