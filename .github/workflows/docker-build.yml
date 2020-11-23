@@ -21,13 +21,17 @@ jobs:
         run: |
           git fetch --tags --force
 
-      - name: Fetch tag version
-        if: github.event_name == 'push'
+      - uses: little-core-labs/get-git-tag@v3.0.1
         id: tag_data
-        uses: ericcornelissen/git-tag-annotation-action@v1
+        with:
+          tagRegex: "(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
+          tagRegexGroup: 1 # Optional. Default is 1.
 
       - name: The output
-        run: echo ${{ steps.tag_data.outputs.git-tag-annotation }}
+        run: echo ${{ steps.tag_data.outputs.tag}}
+
+      - name: The output 2
+        run: echo $GIT_TAG_NAME
 
           #      - name: Docker meta
           #        id: docker_meta
