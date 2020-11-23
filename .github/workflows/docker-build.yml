@@ -23,6 +23,9 @@ jobs:
 
       - name: Get branch name
         uses: nelonoel/branch-name@v1.0.1
+
+      - name: Set docker tag from branch name
+        if: github.event_name == 'push.branches'
         run: |
           echo "Current branch is ${BRANCH_NAME}"
           DOCER_TAG="${BRANCH_NAME}-latest"
@@ -35,8 +38,12 @@ jobs:
         with:
           tagRegex: (.*)  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
           tagRegexGroup: 1 # Optional. Default is 1.
+
+      - name: Set docker tag from tag
+        if: github.event_name == 'push.tags'
         run: |
-          DOCER_TAG="${{ steps.tag_data.outputs.tag}}"
+          echo "Current tag is ${GIT_TAG_NAME}"
+          DOCER_TAG="${GIT_TAG_NAME}"
           export DOCER_TAG
 
       - name: Output Info
