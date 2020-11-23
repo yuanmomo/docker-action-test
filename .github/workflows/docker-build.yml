@@ -22,7 +22,7 @@ jobs:
           git fetch --tags --force
 
       - name: Create Release
-        if: github.event_name == 'push'
+        #        if: github.event_name == 'push'
         id: tag_data
         uses: ericcornelissen/git-tag-annotation-action@v1
 
