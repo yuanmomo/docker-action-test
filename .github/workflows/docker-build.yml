@@ -32,10 +32,15 @@ jobs:
           tagRegexGroup: 1 # Optional. Default is 1.
 
       - name: Set docker tag from tag
+        id: set_docker_tag
         run: |
           [[ ${{github.ref}} == */tags/* ]] && DOCKER_TAG="${GIT_TAG_NAME}" || DOCKER_TAG="dev-latest"
-          export DOCKER_TAG
+          DOCKER_TAG="yuanmomo/action-test:${DOCKER_TAG}"
+
           echo "New docker tag is ${DOCKER_TAG}"
+          echo '::set-output name=docker_tag::${DOCKER_TAG}'
+        outputs:
+          tag: ${{  }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -57,7 +62,7 @@ jobs:
           push: true
           file: ./Dockerfile
           platforms: linux/amd64
-          tags: "yuanmomo/action-test:${DOCKER_TAG}"
+          tags: ${{ steps.set_docker_tag.outputs.docker_tag }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
