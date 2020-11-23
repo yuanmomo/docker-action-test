@@ -25,7 +25,7 @@ jobs:
         uses: little-core-labs/get-git-tag@v3.0.1
         id: tag_data
         with:
-          tagRegex: "(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
+          tagRegex:   # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
           tagRegexGroup: 1 # Optional. Default is 1.
 
       - name: The output
