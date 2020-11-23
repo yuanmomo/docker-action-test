@@ -57,7 +57,7 @@ jobs:
           push: true
           file: ./Dockerfile
           platforms: linux/amd64
-          tags: yuanmomo/action-test:${DOCKER_TAG}
+          tags: yuanmomo/action-test:${{DOCKER_TAG}}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
