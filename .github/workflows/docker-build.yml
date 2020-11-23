@@ -21,7 +21,8 @@ jobs:
         run: |
           git fetch --tags --force
 
-      - uses: little-core-labs/get-git-tag@v3.0.1
+      - name: Get git tag
+        uses: little-core-labs/get-git-tag@v3.0.1
         id: tag_data
         with:
           tagRegex: "(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
