@@ -17,19 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Fetch tag
-        run: |
-          git fetch --tags --force
-
       - name: Get branch name
         uses: nelonoel/branch-name@v1.0.1
 
-      - name: Set docker tag from branch name
-        if: github.event_name == 'push.branches'
+      - name: Fetch tag
         run: |
-          echo "Current branch is ${BRANCH_NAME}"
-          DOCER_TAG="${BRANCH_NAME}-latest"
-          export DOCER_TAG
+          git fetch --tags --force
 
       - name: Get git tag
         uses: little-core-labs/get-git-tag@v3.0.1
@@ -39,17 +32,13 @@ jobs:
           tagRegex: (.*)  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
           tagRegexGroup: 1 # Optional. Default is 1.
 
-      - name: Set docker tag from tag
-        if: github.event_name == 'push.tags'
-        run: |
-          echo "Current tag is ${GIT_TAG_NAME}"
-          DOCER_TAG="${GIT_TAG_NAME}"
-          export DOCER_TAG
 
-      - name: Output Info
+      - name: Set docker tag from tag
+        #if: github.event_name == 'push.tags'
         run: |
-          echo "DOCER_TAG is ${DOCER_TAG}"
-          echo "github.context.ref is ${{github.context.ref}}"
+          echo ${{github.ref}}
+          echo "Current tag is ${GIT_TAG_NAME}"
+          echo "Current branch is ${BRANCH_NAME}"
 
           #      - name: Docker meta
           #        id: docker_meta
