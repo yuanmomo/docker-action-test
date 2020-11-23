@@ -38,7 +38,7 @@ jobs:
           DOCKER_TAG="yuanmomo/action-test:${DOCKER_TAG}"
 
           echo "New docker tag is ${DOCKER_TAG}"
-          echo '::set-output name=docker_tag::${DOCKER_TAG}'
+          echo "::set-output name=docker_tag::$(echo ${DOCKER_TAG})"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
