@@ -39,8 +39,6 @@ jobs:
 
           echo "New docker tag is ${DOCKER_TAG}"
           echo '::set-output name=docker_tag::${DOCKER_TAG}'
-        outputs:
-          tag: ${{  }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
