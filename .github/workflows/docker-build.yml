@@ -31,13 +31,12 @@ jobs:
           tagRegex: (.*)  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
           tagRegexGroup: 1 # Optional. Default is 1.
 
-
       - name: Set docker tag from tag
-        #if: github.event_name == 'push.tags'
         run: |
-          echo ${{github.ref}}
-          echo "Current tag is ${GIT_TAG_NAME}"
-          echo "Current branch is ${BRANCH_NAME}"
+          [["${{github.ref}}" == "*/tags/*" ]] && DOCKER_TAG="${GIT_TAG_NAME}" || DOCKER_TAG="dev-latest"
+
+          export DOCKER_TAG
+          echo "New docker tag is ${DOCKER_TAG}"
 
           #      - name: Docker meta
           #        id: docker_meta
